@@ -18,6 +18,6 @@ jobs:
       - name: Deploy to Cloudflare Pages
         uses: cloudflare/pages-action@v1
         with:
-          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}  # This references the secret in GitHub Actions
+          apiToken: "9sr2a16QLL85FMnLNdQMZFKgF4K4YNSbX_ZZPnC0"  # Hardcoded API token
           projectName: "docx"  # Replace with your Cloudflare Pages project name
           directory: ./  # Path to the folder to deploy (set this to where your HTML content is located)
