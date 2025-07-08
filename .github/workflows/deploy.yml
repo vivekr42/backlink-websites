@@ -3,9 +3,9 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - master  # Trigger deployment on pushes to master (or main)
+      - master  # Trigger deployment on pushes to master
     paths:
-      - '**/*'  # Trigger the workflow whenever any file is modified or added
+      - '*/**'  # Trigger when any folder is added or modified
 
 jobs:
   deploy:
@@ -15,21 +15,15 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Setup Git
+      - name: Setup Git for deployment
         run: |
-          git config --global user.name "github-actions"
-          git config --global user.email "github-actions@github.com"
-
-      - name: Build the website (Optional step for frameworks)
-        run: |
-          # If you are using a static site generator or build tool, run the build command here
-          # e.g., npm run build or yarn build
-          echo "Building website..."
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git remote set-url origin https://github-actions[bot]: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@github.com/vivekr42/backlink-websites.git  # Hardcoded PAT
 
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
-          branch: gh-pages  # The branch to deploy to (usually 'gh-pages')
-          folder: ./  # The folder containing the files to deploy (set to './' for root)
-          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides a token for actions
-
+          branch: gh-pages  # The branch to deploy to
+          folder: ./  # The folder to deploy (set to './' for the root)
+          token: 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  # Hardcoded PAT for GitHub Pages action
