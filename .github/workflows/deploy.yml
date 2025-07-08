@@ -1,0 +1,23 @@
+name: Deploy Website to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - master  # Trigger deployment on pushes to master
+    paths:
+      - '*/**'  # Trigger when any folder is added or modified
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/pages-action@v1
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          projectName: "docx"  # Replace with your Cloudflare Pages project name
+          directory: ./  # Path to the folder to deploy (set this to where your HTML content is located)
