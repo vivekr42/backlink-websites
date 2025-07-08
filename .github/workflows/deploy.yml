@@ -1,11 +1,11 @@
-name: Deploy Website to Cloudflare Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches:
-      - master  # Trigger deployment on pushes to master
+      - master  # Trigger deployment on pushes to master (or main)
     paths:
-      - '*/**'  # Trigger when any folder is added or modified
+      - '**/*'  # Trigger the workflow whenever any file is modified or added
 
 jobs:
   deploy:
@@ -15,10 +15,21 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Deploy to Cloudflare Pages
-        uses: cloudflare/pages-action@v1
+      - name: Setup Git
+        run: |
+          git config --global user.name "github-actions"
+          git config --global user.email "github-actions@github.com"
+
+      - name: Build the website (Optional step for frameworks)
+        run: |
+          # If you are using a static site generator or build tool, run the build command here
+          # e.g., npm run build or yarn build
+          echo "Building website..."
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
         with:
-          apiToken: "9sr2a16QLL85FMnLNdQMZFKgF4K4YNSbX_ZZPnC0"  # Hardcoded API token
-          projectName: "docx"  # Replace with your Cloudflare Pages project name
-          directory: ./  # Path to the folder to deploy (set this to where your HTML content is located)
-          accountId: "340109e68be95f5c639cd4b6817da56b"  # Your Cloudflare Account ID
+          branch: gh-pages  # The branch to deploy to (usually 'gh-pages')
+          folder: ./  # The folder containing the files to deploy (set to './' for root)
+          token: ${{ secrets.GITHUB_TOKEN }}  # GitHub automatically provides a token for actions
+
