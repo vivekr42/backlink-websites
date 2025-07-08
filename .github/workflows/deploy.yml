@@ -21,3 +21,4 @@ jobs:
           apiToken: "9sr2a16QLL85FMnLNdQMZFKgF4K4YNSbX_ZZPnC0"  # Hardcoded API token
           projectName: "docx"  # Replace with your Cloudflare Pages project name
           directory: ./  # Path to the folder to deploy (set this to where your HTML content is located)
+          accountId: "340109e68be95f5c639cd4b6817da56b"  # Your Cloudflare Account ID
